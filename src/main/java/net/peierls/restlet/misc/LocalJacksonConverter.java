@@ -5,6 +5,7 @@ import java.io.Writer;
 import java.util.logging.Level;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,6 +22,7 @@ import org.restlet.representation.Representation;
  * Uses an extension of {@link JacksonRepresentation}
  * that gets its {@link ObjectMapper} via dependency injection.
  */
+@Singleton
 public class LocalJacksonConverter extends JacksonConverter {
 
     @Override protected <T> JacksonRepresentation<T> create(MediaType mediaType, T source) {
