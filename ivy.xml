@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ivy-module version="2.0">
+    <info organisation="biz.seatyourself" module="sy-inject-scopes"/>
+    <dependencies>
+        <dependency org="com.google.inject"             name="guice"                            rev="3.0" />
+        <dependency org="com.fasterxml.jackson.core"    name="jackson-annotations"              rev="2.1.1" />
+        <dependency org="com.fasterxml.jackson.core"    name="jackson-core"                     rev="2.1.1" />
+        <dependency org="com.fasterxml.jackson.core"    name="jackson-databind"                 rev="2.1.1" />
+        <dependency org="org.restlet.jee"               name="org.restlet"                      rev="2.2-M1" />
+        <dependency org="org.restlet.jee"               name="org.restlet.ext.jackson"          rev="2.2-M1" />
+    </dependencies>
+</ivy-module>

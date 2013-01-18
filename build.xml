@@ -1,0 +1,66 @@
+<project name="restlet-misc" default="jar" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <description>
+        Tips, tricks, pitfalls, and workarounds for Restlet
+    </description>
+
+
+    <property name="src.dir"            value="${basedir}/src/main/java" />
+    <property name="lib.dir"            value="${basedir}/lib" />
+    <property name="build.dir"          value="${basedir}/build" />
+    <property name="classes.dir"        value="${build.dir}/classes" />
+
+
+    <target name="compile" description="--> compile the Java source">
+        <mkdir dir="${classes.dir}" />
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeAntRuntime="false">
+            <classpath>
+                <fileset dir="${lib.dir}" includes="*.jar" />
+            </classpath>
+            <compilerarg value="-Xlint:deprecation"/>
+            <compilerarg value="-Xlint:unchecked"/>
+            <exclude name="**/package-info.java" />
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile" description="--> make a jar file for this project">
+        <jar destfile="${build.dir}/${ant.project.name}.jar">
+            <fileset dir="${classes.dir}" />
+        </jar>
+    </target>
+    
+    <target name="clean" description="--> clean up the build directory">
+        <delete dir="${build.dir}"/>
+    </target>
+
+
+    <!--
+     !
+     ! Targets and properties to resolve lib artifacts using Ivy repo.
+     ! Not needed if lib/ directory is supplied.
+     !
+     !-->
+     
+    <property name="ivy.version"        value="2.3.0-rc2" />
+    <property name="ivy.jar.name"       value="ivy-${ivy.version}.jar" />    
+    <property name="ivy.jar.dir"        location="${user.home}/.ivy2/jars" />    
+    <property name="ivy.jar"            location="${ivy.jar.dir}/${ivy.jar.name}" />
+    
+    <path id="ivy.classpath">
+        <pathelement location="${ivy.jar}" />
+    </path>
+
+    <target name="init-ivy" description="--> initialize Ivy tasks and settings">
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                 uri="antlib:org.apache.ivy.ant" 
+                 classpathref="ivy.classpath"
+        />
+        <ivy:settings file="ivysettings.xml" />
+    </target>
+
+    <target name="resolve" depends="init-ivy" description="--> resolve and retrieve dependencies with ivy">
+        <mkdir dir="${lib.dir}" />
+        <ivy:retrieve pattern="${lib.dir}/[artifact].[ext]" type="jar, bundle" sync="true" />
+    </target>
+
+</project>

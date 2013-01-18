@@ -1,0 +1,10 @@
+<ivysettings>
+    <settings defaultResolver="shared"/>
+    <property name="shared.repo.dir" value="${ivy.default.ivy.user.dir}/sy-ivy-repo" />
+    <resolvers>
+        <filesystem name="shared">
+            <ivy      pattern="${shared.repo.dir}/[organisation]/[module]/[revision]/ivy.xml"/>
+            <artifact pattern="${shared.repo.dir}/[organisation]/[module]/[revision]/[artifact].[ext]"/>
+        </filesystem>
+    </resolvers>
+</ivysettings>
