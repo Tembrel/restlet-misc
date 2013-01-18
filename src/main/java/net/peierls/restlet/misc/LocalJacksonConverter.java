@@ -21,6 +21,7 @@ import org.restlet.representation.Representation;
  * A local extension of Restlet's {@link JacksonConverter}.
  * Uses an extension of {@link JacksonRepresentation}
  * that gets its {@link ObjectMapper} via dependency injection.
+ * Singleton must be eagerly created or it won't be used!
  */
 @Singleton
 public class LocalJacksonConverter extends JacksonConverter {
@@ -105,6 +106,7 @@ public class LocalJacksonConverter extends JacksonConverter {
 
     @Inject void registerWithEngine() {
         Engine.getInstance().getRegisteredConverters().add(this);
+        // XXX Not shown here: Remove default JacksonConverter, if present.
     }
 
     private final ObjectMapper objectMapper;
